@@ -10,13 +10,14 @@ export const StudyList = (props) => {
   }, []);
 
   const [searchStudyName, setSearchStudyName] = useState("");
-  const [study, setStudies] = useState([]);
+  const [studies, setStudies] = useState([]);
   const [currentStudy, setCurrentStudy] = useState({
     studyName: "",
     studyObjective: "",
     testedDrug: "",
     comparedDrug: "",
   });
+  const [displayOrModify, setDisplayOrModify] = useState(true);
 
   const onChangeSearchStudyName = (e) => {
     const searchStudyName = e.target.value;
@@ -44,9 +45,9 @@ export const StudyList = (props) => {
     });
   };
 
-  const setActiveStudy = (study, index) => {
-    console.log("setting", study);
-    setCurrentStudy({ ...study, index });
+  const setActiveStudy = (studies, index) => {
+    console.log("setting", studies);
+    setCurrentStudy({ ...studies, index });
   };
 
   const doSearchStudyName = (e) => {
@@ -67,7 +68,9 @@ export const StudyList = (props) => {
   };
 
   const onClickModify = (e) => {
-    props.setCurrentComponent("ModifyStudy");
+    setDisplayOrModify(!displayOrModify);
+    //console.log("onClickModify e = ", e);
+    //props.setCurrentComponent("ModifyStudy");
   };
 
   const onClickDelete = (e) => {
@@ -133,22 +136,22 @@ export const StudyList = (props) => {
         <h4>Study List</h4>
 
         <ul className="list-group">
-          {study &&
-            study.map((_study, _index) => (
+          {studies &&
+            studies.map((_studies, _index) => (
               <li
                 className={
                   "list-group-item " +
                   (_index === currentStudy.index ? "active" : "")
                 }
                 data-index={_index}
-                onClick={() => setActiveStudy(_study, _index)}
+                onClick={() => setActiveStudy(_studies, _index)}
                 key={_index}
               >
-                {_study.studyName}
+                {_studies.studyName}
                 <button
                   type="button"
                   className={"btn btn-danger offset-sm-1"}
-                  id={_study.id}
+                  id={_studies.id}
                   onClick={onClickDelete}
                 >
                   X
@@ -160,47 +163,54 @@ export const StudyList = (props) => {
       <div className="col-md-6">
         {currentStudy.index >= 0 ? (
           <div>
-            <h4>Study</h4>
-            {console.log("affichage de current study ", currentStudy)}
-            <div>
-              <label>
-                <strong>Study name:</strong>
-              </label>{" "}
-              {currentStudy.studyName}
-            </div>
-            <div>
-              <label>
-                <strong>Study objective:</strong>
-              </label>{" "}
-              {currentStudy.studyObjective}
-            </div>
-            <div>
-              <label>
-                <strong>Tested drug:</strong>
-              </label>{" "}
-              {currentStudy.testedDrug}
-            </div>
-            <div>
-              <label>
-                <strong>Compared to drug:</strong>
-              </label>{" "}
-              {currentStudy.comparedDrug}
-            </div>
-            <button className="edit-link" onClick={onClickModify}>
-              Modify
-            </button>
-            <button
-              variant="primary"
-              className="edit-link"
-              onClick={onClickModify}
-            >
-              Edit study data
-            </button>
+            {/* ****************************************************************** */}
+            {/* Here is the condition to switch between display and modify studies */}
+            {/* ****************************************************************** */}
+            {displayOrModify ? (
+              <div>
+                <h4>Study</h4>
+                {console.log("affichage de current study ", currentStudy)}
+                <div>
+                  <label>
+                    <strong>Study name:</strong>
+                  </label>{" "}
+                  {currentStudy.studyName}
+                </div>
+                <div>
+                  <label>
+                    <strong>Study objective:</strong>
+                  </label>{" "}
+                  {currentStudy.studyObjective}
+                </div>
+                <div>
+                  <label>
+                    <strong>Tested drug:</strong>
+                  </label>{" "}
+                  {currentStudy.testedDrug}
+                </div>
+                <div>
+                  <label>
+                    <strong>Compared to drug:</strong>
+                  </label>{" "}
+                  {currentStudy.comparedDrug}
+                </div>
+                <button className="edit-link" onClick={onClickModify}>
+                  Modify
+                </button>
+              </div>
+            ) : (
+              <div>
+                <ModifyStudy studyState={currentStudy} />
+                <button className="edit-link" onClick={onClickModify}>
+                  Display
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <div>
             <br />
-            <p>Please click on a Study...</p>
+            <p>Please select a study to display or modify it</p>
           </div>
         )}
       </div>

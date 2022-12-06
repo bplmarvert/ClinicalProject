@@ -82,7 +82,7 @@ const App = () => {
                 type="submit"
                 onSubmit={handleDisplayOne}
               >
-                ? {/* bouton de la ligne du haut */}
+                ? {/* bouton ? de la ligne du haut */}
               </button>
             </form>
           </div>
@@ -99,24 +99,10 @@ const App = () => {
       )}
       {componentToDisplay === "Study" && <Study />}
       {componentToDisplay === "AddStudy" && <AddStudy />}
-      {componentToDisplay === "ModifyStudy" && (
-        <ModifyStudy setCurrentComponent={setCurrentComponent} />
-      )}
+      {/* componentToDisplay === "ModifyStudy" && (
+        <ModifyStudy setCurrentComponent={setCurrentComponent} setStudyState ={}/>
+      ) */}
     </div>
   );
 };
-
-/*</nav>
-      <div className="container mt-3">
-        <Routes>
-          {/*<Route path={"/"} element={<StudyList />} /> */
-
-/*<Route path={"/study"} element={<StudyList />} />
-          {/*<Route path="/add" element={<AddStudy />} />
-          <Route path="/study/:id" element={<Study />} /> */
-
-/*</Routes>
-      </div>
-        </div>*/
-
 export default App;

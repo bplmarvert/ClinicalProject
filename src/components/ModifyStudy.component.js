@@ -1,30 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export const ModifyStudy = (props) => {
   const study = props.studyState;
-  const setStudy = props.setStudyState;
-  const setCurrentComponent = props.setCurrentComponent;
+  /*const studies = props.studies;
+  const setStudies = props.setStudies;*/
+
+  //const setCurrentComponent = props.setCurrentComponent;
   // initialisation of the new study
+  const [state, setState] = useState({
+    id: null,
+    studyName: "",
+    studyObjective: "",
+    testedDrug: "",
+    comparedDrug: "",
+  });
 
   useEffect(() => {
     console.log(study);
   }, [study]);
 
-  const onChangeModifStudyName = (e) => {
-    setStudy({ ...study, studyName: e.target.value });
+  const [currentStudy, setCurrentStudy] = useState({
+    id: null,
+    studyName: "",
+    studyObjective: "",
+    testedDrug: "",
+    comparedDrug: "",
+  });
+
+  const onChangeStudyName = (e) => {
+    setState({ ...state, studyName: e.target.value });
   };
 
   const onChangeModifComparedDrug = (e) => {
-    setStudy({ ...study, comparedDrug: e.target.value });
+    setState({ ...state, comparedDrug: e.target.value });
   };
 
   const onChangeModifTestedDrug = (e) => {
-    setStudy({ ...study, testedDrug: e.target.value });
+    setState({ ...state, testedDrug: e.target.value });
   };
 
   const onChangeModifStudyObjective = (e) => {
-    setStudy({ ...study, studyObjective: e.target.value });
+    setState({ ...state, studyObjective: e.target.value });
   };
 
   const modifStudy = (e) => {
@@ -41,16 +58,18 @@ export const ModifyStudy = (props) => {
 
   return (
     <>
+      {console.log("props = ", props)}
+      {console.log("study = ", study)}
       <h2> Study to be modified </h2>
       <form onSubmit={modifStudy}>
         <div>
           <label>Study Name</label>
           <input
-            id={study.id}
+            id={study._id}
             type="text"
             required
             value={study.studyName}
-            onChange={onChangeModifStudyName}
+            onChange={onChangeStudyName}
           />
         </div>
         <div>
@@ -65,7 +84,7 @@ export const ModifyStudy = (props) => {
         <div>
           <label>Tested Drug</label>
           <input
-            id={study.id}
+            id={study._id}
             type="text"
             required
             value={study.testedDrug}
