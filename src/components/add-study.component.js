@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createStudy } from "../services/study.service";
+import axios from "axios";
 
 export const AddStudy = () => {
   const [state, setState] = useState({
@@ -75,13 +76,16 @@ export const AddStudy = () => {
           </button>
         </div>
       ) : (
-        <form id="add-study-form" onSubmit={saveStudy}>
-          <div className="form-group">
-            <label className="form-inline my-2 my-lg-0" htmlFor="studyName">
+        <form id="enFlex add-study-form" onSubmit={saveStudy}>
+          <div className="enFlex form-group ">
+            <label
+              className="margeHaute lesMarges form-inline my-2 my-lg-0"
+              htmlFor="studyName"
+            >
               Name of the study :
             </label>
             <input
-              className="form-control form-inline my-2 my-lg-0"
+              className="justeLaMargeHaute enFlex form-control form-inline my-2 my-lg-0"
               type="text"
               id="studyName"
               required
@@ -90,12 +94,17 @@ export const AddStudy = () => {
               name="studyName"
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="studyObjective">Study Objective : </label>
+          <div></div>
+          <div className="form-group enFlex">
+            <label
+              htmlFor="studyObjective"
+              className="margeHaute lesMarges form-inline my-2 my-lg-0"
+            >
+              Study Objective :
+            </label>
             <input
               type="text"
-              className="form-control"
+              className="justeLaMargeHaute enFlex form-control form-inline my-2 my-lg-0"
               id="studyObjective"
               required
               value={state.studyObjective}

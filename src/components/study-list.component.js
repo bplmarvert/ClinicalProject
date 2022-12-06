@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllStudies, findStudyByStudyName } from "../services/study.service";
-import { Link } from "react-router-dom";
+import "./study-list.component.css";
+import axios from "axios";
+import { ModifyStudy } from "./ModifyStudy.component";
 
 export const StudyList = (props) => {
   useEffect(() => {
@@ -8,7 +10,7 @@ export const StudyList = (props) => {
   }, []);
 
   const [searchStudyName, setSearchStudyName] = useState("");
-  const [study, setStudy] = useState([]);
+  const [study, setStudies] = useState([]);
   const [currentStudy, setCurrentStudy] = useState({
     studyName: "",
     studyObjective: "",
@@ -21,26 +23,11 @@ export const StudyList = (props) => {
     setSearchStudyName(searchStudyName);
   };
 
-  /*const onChangeSearchStudyObjective = (e) => {
-    const searchStudyObjective = e.target.value;
-    setSearchStudyObjective(searchStudyObjective);
-  };
-
-  const onChangeSearchTestedDrug = (e) => {
-    const searchTestedDrug = e.target.value;
-    setSearchTestedDrug(searchTestedDrug);
-  };
-
-  const onChangeSearchComparedDrug = (e) => {
-    const searchComparedDrug = e.target.value;
-    setSearchComparedDrug(searchComparedDrug);
-  };*/
-
   const retrieveStudy = () => {
     getAllStudies()
       .then((response) => {
         console.log(response.data);
-        setStudy(response.data);
+        setStudies(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -62,19 +49,37 @@ export const StudyList = (props) => {
     setCurrentStudy({ ...study, index });
   };
 
-  const doSearchStudyName = () => {
+  const doSearchStudyName = (e) => {
+    e.preventDefault();
     setCurrentStudy({
-      study: null,
+      studyName: null,
       index: -1,
     });
 
     findStudyByStudyName(searchStudyName)
       .then((response) => {
-        setStudy(response.data);
+        setStudies(response.data);
         console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
+      });
+  };
+
+  const onClickModify = (e) => {
+    props.setCurrentComponent("ModifyStudy");
+  };
+
+  const onClickDelete = (e) => {
+    const url = `http://localhost:8083/api/study/${e.target.id}`;
+    axios
+      .delete(url)
+      .then(() => {
+        refreshList();
+        console.log("task deleted");
+      })
+      .catch((e) => {
+        console.log("error in axio fetch in onClickDelete function", e);
       });
   };
 
@@ -102,7 +107,7 @@ export const StudyList = (props) => {
             This is a simple application for Clinical studies management,
             designed for the course of Full Stack Developers, at Efrei Paris. It
             serves to provide an example of a full-stack application, including
-            a react Frontend, a Backend, a MongoDB database.
+            a react Frontend, Backend and a MongoDB database.
           </p>
         </div>
         <div className="input-group mb-3">
@@ -140,14 +145,23 @@ export const StudyList = (props) => {
                 key={_index}
               >
                 {_study.studyName}
+                <button
+                  type="button"
+                  className={"btn btn-danger offset-sm-1"}
+                  id={_study.id}
+                  onClick={onClickDelete}
+                >
+                  X
+                </button>
               </li>
             ))}
         </ul>
       </div>
       <div className="col-md-6">
-        {currentStudy.index ? (
+        {currentStudy.index >= 0 ? (
           <div>
             <h4>Study</h4>
+            {console.log("affichage de current study ", currentStudy)}
             <div>
               <label>
                 <strong>Study name:</strong>
@@ -166,14 +180,21 @@ export const StudyList = (props) => {
               </label>{" "}
               {currentStudy.testedDrug}
             </div>
-            <button className="edit-link">
-              <Link
-                to={"/study/" + currentStudy.id}
-                className="badge badge-warning"
-                id="edit-study"
-              >
-                Edit
-              </Link>
+            <div>
+              <label>
+                <strong>Compared to drug:</strong>
+              </label>{" "}
+              {currentStudy.comparedDrug}
+            </div>
+            <button className="edit-link" onClick={onClickModify}>
+              Modify
+            </button>
+            <button
+              variant="primary"
+              className="edit-link"
+              onClick={onClickModify}
+            >
+              Edit study data
             </button>
           </div>
         ) : (

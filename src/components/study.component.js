@@ -19,48 +19,28 @@ export const Study = (props) => {
 
   const [currentStudy, setCurrentStudy] = useState({
     id: null,
-    title: "",
-    description: "",
-    published: false,
+    studyName: "",
+    studyObjective: "",
+    testedDrug: "",
+    comparedDrug: "",
   });
+
   const [message, setMessage] = useState("");
 
-  const onChangeTitle = (e) => {
-    const title = e.target.value;
-
+  const onChangeStudyName = (e) => {
+    const studyName = e.target.value;
     setCurrentStudy({
       ...currentStudy,
-      title: title,
+      studyName: studyName,
     });
   };
 
-  const onChangeDescription = (e) => {
-    const description = e.target.value;
+  const onChangeStudyObjective = (e) => {
+    const studyObjective = e.target.value;
     setCurrentStudy({
       ...currentStudy,
-      description: description,
+      studyObjective: studyObjective,
     });
-  };
-
-  const updatePublished = (status) => {
-    var data = {
-      id: currentStudy.id,
-      title: currentStudy.title,
-      description: currentStudy.description,
-      published: status,
-    };
-
-    updateStudy(currentStudy.id, data)
-      .then((response) => {
-        setCurrentStudy({
-          ...currentStudy,
-          published: status,
-        });
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
   const handleStudyUpdate = () => {
@@ -85,6 +65,7 @@ export const Study = (props) => {
       });
   };
 
+  // Cela ne passe jamais dans la pemière condition
   return (
     <div>
       {currentStudy ? (
@@ -92,50 +73,26 @@ export const Study = (props) => {
           <h4>Study</h4>
           <form>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="studyName">Study Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="title"
-                value={currentStudy.title}
-                onChange={onChangeTitle}
+                id="studyName"
+                value={currentStudy.studyName}
+                onChange={onChangeStudyName}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="studyObjective">Study Objective</label>
               <input
                 type="text"
                 className="form-control"
-                id="description"
-                value={currentStudy.description}
-                onChange={onChangeDescription}
+                id="studyObjective"
+                value={currentStudy.studyObjective}
+                onChange={onChangeStudyObjective}
               />
-            </div>
-
-            <div className="form-group">
-              <label>
-                <strong>Status:</strong>
-              </label>
-              {currentStudy.published ? "Published" : "Pending"}
             </div>
           </form>
-
-          {currentStudy.published ? (
-            <button
-              className="badge badge-primary mr-2"
-              onClick={() => updatePublished(false)}
-            >
-              UnPublish
-            </button>
-          ) : (
-            <button
-              className="badge badge-primary mr-2 edit-link"
-              onClick={() => updatePublished(true)}
-            >
-              Publish
-            </button>
-          )}
-
           <button
             className="badge badge-danger mr-2 edit-link"
             onClick={handleStudyDelete}
