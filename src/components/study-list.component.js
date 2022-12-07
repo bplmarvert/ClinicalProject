@@ -5,68 +5,58 @@ import axios from "axios";
 import { ModifyStudy } from "./ModifyStudy.component";
 
 export const StudyList = (props) => {
+  const [searchStudyName, setSearchStudyName] = useState("");
+  const [no, setNo] = useState(0);
+  const [studies, setStudies] = useState([]);
+  const [displayOrModify, setDisplayOrModify] = useState(true);
+
+  const retrieveStudy = () => {
+    getAllStudies()
+      .then((response) => {
+        setStudies(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveStudy();
   }, []);
 
-  const [searchStudyName, setSearchStudyName] = useState("");
-  const [studies, setStudies] = useState([]);
-  const [currentStudy, setCurrentStudy] = useState({
-    studyName: "",
-    studyObjective: "",
-    testedDrug: "",
-    comparedDrug: "",
-  });
-  const [displayOrModify, setDisplayOrModify] = useState(true);
+  const updateStudy = (study) => {
+    let newData = [...studies];
+    newData[no] = study;
+    setStudies(newData);
+  };
 
   const onChangeSearchStudyName = (e) => {
     const searchStudyName = e.target.value;
     setSearchStudyName(searchStudyName);
   };
 
-  const retrieveStudy = () => {
-    getAllStudies()
-      .then((response) => {
-        console.log(response.data);
-        setStudies(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
   const refreshList = () => {
     retrieveStudy();
-    setCurrentStudy({
-      studyName: "",
-      studyObjective: "",
-      testedDrug: "",
-      comparedDrug: "",
-    });
   };
 
-  const setActiveStudy = (studies, index) => {
-    console.log("setting", studies);
-    setCurrentStudy({ ...studies, index });
+  const setActiveStudy = (index) => {
+    setNo(index);
   };
 
   const doSearchStudyName = (e) => {
     e.preventDefault();
-    setCurrentStudy({
-      studyName: null,
-      index: -1,
-    });
-
-    findStudyByStudyName(searchStudyName)
-      .then((response) => {
-        setStudies(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
+  /*
+  findStudyByStudyName(searchStudyName)
+    .then((response) => {
+      setStudies(response.data);
+      console.log(response.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+*/
   const onClickModify = (e) => {
     setDisplayOrModify(!displayOrModify);
     //console.log("onClickModify e = ", e);
@@ -86,6 +76,8 @@ export const StudyList = (props) => {
       });
   };
 
+  const currentStudy = studies[no];
+  console.log("CurrentStudy= ", currentStudy);
   return (
     <div className="list row">
       <div className="col-md-12">
@@ -144,7 +136,7 @@ export const StudyList = (props) => {
                   (_index === currentStudy.index ? "active" : "")
                 }
                 data-index={_index}
-                onClick={() => setActiveStudy(_studies, _index)}
+                onClick={() => setActiveStudy(_index)}
                 key={_index}
               >
                 {_studies.studyName}
@@ -161,7 +153,7 @@ export const StudyList = (props) => {
         </ul>
       </div>
       <div className="col-md-6">
-        {currentStudy.index >= 0 ? (
+        {typeof currentStudy != "undefined" ? (
           <div>
             {/* ****************************************************************** */}
             {/* Here is the condition to switch between display and modify studies */}
@@ -200,7 +192,10 @@ export const StudyList = (props) => {
               </div>
             ) : (
               <div>
-                <ModifyStudy studyState={currentStudy} />
+                <ModifyStudy
+                  studyState={currentStudy}
+                  updateStudy={updateStudy}
+                />
                 <button className="edit-link" onClick={onClickModify}>
                   Display
                 </button>

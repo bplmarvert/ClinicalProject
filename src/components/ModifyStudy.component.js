@@ -3,45 +3,26 @@ import axios from "axios";
 
 export const ModifyStudy = (props) => {
   const study = props.studyState;
-  /*const studies = props.studies;
-  const setStudies = props.setStudies;*/
+  //const studies = props.studies;
+  const setCurrentStudy = props.updateStudy;
 
   //const setCurrentComponent = props.setCurrentComponent;
   // initialisation of the new study
-  const [state, setState] = useState({
-    id: null,
-    studyName: "",
-    studyObjective: "",
-    testedDrug: "",
-    comparedDrug: "",
-  });
-
-  useEffect(() => {
-    console.log(study);
-  }, [study]);
-
-  const [currentStudy, setCurrentStudy] = useState({
-    id: null,
-    studyName: "",
-    studyObjective: "",
-    testedDrug: "",
-    comparedDrug: "",
-  });
 
   const onChangeStudyName = (e) => {
-    setState({ ...state, studyName: e.target.value });
+    setCurrentStudy({ ...study, studyName: e.target.value });
   };
 
   const onChangeModifComparedDrug = (e) => {
-    setState({ ...state, comparedDrug: e.target.value });
+    setCurrentStudy({ ...study, comparedDrug: e.target.value });
   };
 
   const onChangeModifTestedDrug = (e) => {
-    setState({ ...state, testedDrug: e.target.value });
+    setCurrentStudy({ ...study, testedDrug: e.target.value });
   };
 
   const onChangeModifStudyObjective = (e) => {
-    setState({ ...state, studyObjective: e.target.value });
+    setCurrentStudy({ ...study, studyObjective: e.target.value });
   };
 
   const modifStudy = (e) => {
