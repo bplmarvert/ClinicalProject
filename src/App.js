@@ -4,7 +4,8 @@ import "./App.css";
 import { AddStudy } from "./components/add-study.component";
 import { StudyList } from "./components/study-list.component";
 import { Study } from "./components/study.component";
-import { ModifyStudy } from "./components/ModifyStudy.component";
+import { AddPatient } from "./components/add-patient.component";
+import { PatientList } from "./components/patient-list.component";
 
 const App = () => {
   const [open, setOpen] = React.useState(false);
@@ -14,9 +15,11 @@ const App = () => {
   };
 
   const [componentToDisplay, setCurrentComponent] = useState("StudyList");
+  const [onGoingStudy, setOnGoingStudy] = useState("");
 
   const handleMenu = (e) => {
-    setCurrentComponent(e.target.id);
+    setCurrentComponent(e.target.value);
+    handleOpen();
   };
 
   const handleDisplayOne = (e) => {
@@ -43,30 +46,13 @@ const App = () => {
 
           {/* *********** Drop Down Menu ************* */}
           <div className="dropdown">
-            <button onClick={handleOpen} btn btn-primary>
-              {" "}
-              Studies menu{" "}
-            </button>
-            {open ? (
-              <ul className="menu">
-                <li className="menu-item">
-                  <button id="StudyList" onClick={handleMenu}>
-                    Display all studies
-                  </button>
-                </li>
-                <li className="menu-item">
-                  <button id="AddStudy" onClick={handleMenu}>
-                    {" "}
-                    Add a study{" "}
-                  </button>
-                </li>
-                <li className="menu-item">
-                  <button id="ModifyStudy" onClick={handleMenu}>
-                    Modify a study
-                  </button>
-                </li>
-              </ul>
-            ) : null}
+            <select onChange={handleMenu}>
+              <option value="StudyList">Display all studies</option>
+              <option value="AddStudy">Add a study</option>
+              <option value="ModifyStudy">Modify a study</option>
+              <option value="AddPatient">Add a patient</option>
+              <option value="ListPatient">List of the patients</option>
+            </select>
           </div>
           <div>
             <form className="d-flex form-inline my-2 my-lg-0">
@@ -88,20 +74,26 @@ const App = () => {
           </div>
         </div>
       </nav>
-      {/* n'affiche que le state sélectionné */}
-      {/*{console.log("typeof componentToDisplay", typeof componentToDisplay)}
-      {console.log(
-        "componentToDisplay.componentToDisplay ",
-        componentToDisplay.componentToDisplay
-      )} */}
       {componentToDisplay === "StudyList" && (
-        <StudyList setCurrentComponent={setCurrentComponent} />
+        <StudyList
+          setCurrentComponent={setCurrentComponent}
+          setOnGoingStudy={setOnGoingStudy}
+        />
       )}
       {componentToDisplay === "Study" && <Study />}
       {componentToDisplay === "AddStudy" && <AddStudy />}
-      {/* componentToDisplay === "ModifyStudy" && (
-        <ModifyStudy setCurrentComponent={setCurrentComponent} setStudyState ={}/>
-      ) */}
+      {componentToDisplay === "AddPatient" && (
+        <AddPatient
+          setCurrentComponent={setCurrentComponent}
+          onGoingStudy={onGoingStudy}
+        />
+      )}
+      {componentToDisplay === "ListPatient" && (
+        <PatientList
+          setCurrentComponent={setCurrentComponent}
+          onGoingStudy={onGoingStudy}
+        />
+      )}
     </div>
   );
 };

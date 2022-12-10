@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
 export const ModifyStudy = (props) => {
   const study = props.studyState;
-  //const studies = props.studies;
   const setCurrentStudy = props.updateStudy;
-
-  //const setCurrentComponent = props.setCurrentComponent;
-  // initialisation of the new study
 
   const onChangeStudyName = (e) => {
     setCurrentStudy({ ...study, studyName: e.target.value });
   };
 
-  const onChangeModifComparedDrug = (e) => {
+  const onChangeComparedDrug = (e) => {
     setCurrentStudy({ ...study, comparedDrug: e.target.value });
   };
 
-  const onChangeModifTestedDrug = (e) => {
+  const onChangeTestedDrug = (e) => {
     setCurrentStudy({ ...study, testedDrug: e.target.value });
   };
 
-  const onChangeModifStudyObjective = (e) => {
+  const onChangeStudyObjective = (e) => {
     setCurrentStudy({ ...study, studyObjective: e.target.value });
   };
 
@@ -39,52 +35,67 @@ export const ModifyStudy = (props) => {
 
   return (
     <>
-      {console.log("props = ", props)}
-      {console.log("study = ", study)}
       <h2> Study to be modified </h2>
       <form onSubmit={modifStudy}>
         <div>
-          <label>Study Name</label>
+          <label>
+            <strong>Study Name:</strong>
+          </label>{" "}
           <input
             id={study._id}
             type="text"
+            className={"margin:10px"}
             required
             value={study.studyName}
             onChange={onChangeStudyName}
           />
         </div>
         <div>
-          <label>Study Objectives</label>
+          <label>
+            <strong>Study Objectives: </strong>
+          </label>{" "}
           <input
             type="text"
             required
             value={study.studyObjective}
-            onChange={onChangeModifStudyObjective}
+            onChange={onChangeStudyObjective}
           />
         </div>
         <div>
-          <label>Tested Drug</label>
+          <label>
+            <strong>Tested Drug: </strong>
+          </label>{" "}
           <input
             id={study._id}
             type="text"
             required
             value={study.testedDrug}
-            onChange={onChangeModifTestedDrug}
+            onChange={onChangeTestedDrug}
           />
         </div>
 
         <div>
-          <label> Drug compared with </label>
+          <label>
+            {" "}
+            <strong>Drug compared with: </strong>{" "}
+          </label>{" "}
           <input
-            id={study.id}
+            id={study._id}
             type="text"
+            className="Align-text-center"
             required
             value={study.comparedDrug}
-            onChange={onChangeModifComparedDrug}
+            onChange={onChangeComparedDrug}
           />
         </div>
-
-        <button type="submit">Submit</button>
+        <p> </p>
+        <button
+          type="submit"
+          className="edit-link btn btn-primary col-sm-offset "
+        >
+          Submit
+        </button>
+        <p> </p>
       </form>
     </>
   );

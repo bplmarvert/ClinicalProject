@@ -1,6 +1,23 @@
 .App {
   text-align: center;
 }
+.unelargeur{
+  width: 120px;
+}
+.uneLargeur{
+  width: 150px;
+  margin: 25px;
+}
+
+.largeurBouton{
+  width: 100px;
+  margin: 25px;
+}
+
+.largeurDate{
+  width: 150px;
+  margin: 25px;
+}
 
 .lesMarges{
   margin: 25px;

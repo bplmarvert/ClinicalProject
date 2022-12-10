@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getAllStudies, findStudyByStudyName } from "../services/study.service";
+import { getAllStudies } from "../services/study.service";
 import "./study-list.component.css";
 import axios from "axios";
 import { ModifyStudy } from "./ModifyStudy.component";
 
 export const StudyList = (props) => {
   const [searchStudyName, setSearchStudyName] = useState("");
-  const [no, setNo] = useState(0);
+  const [nbStudy, setNbStudy] = useState(0);
   const [studies, setStudies] = useState([]);
   const [displayOrModify, setDisplayOrModify] = useState(true);
 
@@ -26,7 +26,7 @@ export const StudyList = (props) => {
 
   const updateStudy = (study) => {
     let newData = [...studies];
-    newData[no] = study;
+    newData[nbStudy] = study;
     setStudies(newData);
   };
 
@@ -40,24 +40,35 @@ export const StudyList = (props) => {
   };
 
   const setActiveStudy = (index) => {
-    setNo(index);
+    setNbStudy(index);
   };
 
   const doSearchStudyName = (e) => {
+    console.log("fonction doSearchStudyName e = ", e);
     e.preventDefault();
   };
 
-  /*
-  findStudyByStudyName(searchStudyName)
+  /*findStudyByStudyName(searchStudyName)
     .then((response) => {
       setStudies(response.data);
       console.log(response.data);
     })
     .catch((e) => {
       console.log(e);
-    });
-*/
+    });*/
+
+  const onClickCreatePatient = (e) => {
+    props.setOnGoingStudy(currentStudy);
+    props.setCurrentComponent("AddPatient");
+  };
+
+  const onClickListPatient = (e) => {
+    props.setOnGoingStudy(currentStudy);
+    props.setCurrentComponent("ListPatient");
+  };
+
   const onClickModify = (e) => {
+    props.setOnGoingStudy(currentStudy);
     setDisplayOrModify(!displayOrModify);
     //console.log("onClickModify e = ", e);
     //props.setCurrentComponent("ModifyStudy");
@@ -69,15 +80,17 @@ export const StudyList = (props) => {
       .delete(url)
       .then(() => {
         refreshList();
-        console.log("task deleted");
+        setActiveStudy(0);
+        console.log("Study deleted");
       })
       .catch((e) => {
-        console.log("error in axio fetch in onClickDelete function", e);
+        console.log("error in axio fetch in onClickDelete study function", e);
       });
   };
 
-  const currentStudy = studies[no];
-  console.log("CurrentStudy= ", currentStudy);
+  const currentStudy = studies[nbStudy];
+  props.setOnGoingStudy(currentStudy);
+  getAllStudies();
   return (
     <div className="list row">
       <div className="col-md-12">
@@ -125,7 +138,7 @@ export const StudyList = (props) => {
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Study List</h4>
+        <h4 className="d-flex justify-content-center"> Study List</h4>
 
         <ul className="list-group">
           {studies &&
@@ -161,7 +174,6 @@ export const StudyList = (props) => {
             {displayOrModify ? (
               <div>
                 <h4>Study</h4>
-                {console.log("affichage de current study ", currentStudy)}
                 <div>
                   <label>
                     <strong>Study name:</strong>
@@ -170,7 +182,7 @@ export const StudyList = (props) => {
                 </div>
                 <div>
                   <label>
-                    <strong>Study objective:</strong>
+                    <strong>Study objective :</strong>
                   </label>{" "}
                   {currentStudy.studyObjective}
                 </div>
@@ -186,8 +198,26 @@ export const StudyList = (props) => {
                   </label>{" "}
                   {currentStudy.comparedDrug}
                 </div>
-                <button className="edit-link" onClick={onClickModify}>
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary"
+                  onClick={onClickModify}
+                >
                   Modify
+                </button>{" "}
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary"
+                  onClick={onClickCreatePatient}
+                >
+                  Add a patient
+                </button>{" "}
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary"
+                  onClick={onClickListPatient}
+                >
+                  List patients
                 </button>
               </div>
             ) : (
@@ -195,9 +225,28 @@ export const StudyList = (props) => {
                 <ModifyStudy
                   studyState={currentStudy}
                   updateStudy={updateStudy}
-                />
-                <button className="edit-link" onClick={onClickModify}>
+                />{" "}
+                <p> </p>
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary col-sm-offset "
+                  onClick={onClickModify}
+                >
                   Display
+                </button>{" "}
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary col-sm-offset "
+                  onClick={onClickCreatePatient}
+                >
+                  Add a patient
+                </button>{" "}
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary col-sm-offset "
+                  onClick={onClickListPatient}
+                >
+                  List Patients{" "}
                 </button>
               </div>
             )}

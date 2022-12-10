@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createStudy } from "../services/study.service";
-import axios from "axios";
 
 export const AddStudy = () => {
   const [state, setState] = useState({
@@ -25,8 +24,8 @@ export const AddStudy = () => {
           id: response.data.id,
           studyName: response.data.studyName,
           studyObjective: response.data.studyObjective,
-          published: response.data.published,
-          submitted: true,
+          testedDrug: response.data.testedDrug,
+          comparedDrug: response.data.comparedDrug,
         });
         console.log(response.data);
       })
@@ -61,8 +60,8 @@ export const AddStudy = () => {
       id: null,
       studyName: "",
       studyObjective: "",
-      published: false,
-      submitted: false,
+      testedDrug: "",
+      comparedDrug: "",
     });
   };
 
@@ -77,12 +76,14 @@ export const AddStudy = () => {
         </div>
       ) : (
         <form id="enFlex add-study-form" onSubmit={saveStudy}>
+          <p> </p>
+
           <div className="enFlex form-group ">
             <label
               className="margeHaute lesMarges form-inline my-2 my-lg-0"
               htmlFor="studyName"
             >
-              Name of the study :
+              <strong>Name of the study :</strong>
             </label>
             <input
               className="justeLaMargeHaute enFlex form-control form-inline my-2 my-lg-0"
@@ -95,12 +96,14 @@ export const AddStudy = () => {
             />
           </div>
           <div></div>
+          <p> </p>
+
           <div className="form-group enFlex">
             <label
               htmlFor="studyObjective"
               className="margeHaute lesMarges form-inline my-2 my-lg-0"
             >
-              Study Objective :
+              <strong>Study Objective :</strong>
             </label>
             <input
               type="text"
@@ -112,12 +115,18 @@ export const AddStudy = () => {
               name="studyObjective"
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="testedDrug">Drug to test :</label>
+          <div></div>
+          <p> </p>
+          <div className="form-group enFlex">
+            <label
+              className="margeHaute lesMarges form-inline my-2 my-lg-0"
+              htmlFor="testedDrug"
+            >
+              <strong>Drug to test :</strong>
+            </label>
             <input
               type="text"
-              className="form-control"
+              className="justeLaMargeHaute enFlex form-control form-inline my-2 my-lg-0"
               id="testedDrug"
               required
               value={state.testedDrug}
@@ -125,12 +134,18 @@ export const AddStudy = () => {
               name="testedDrug"
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="studyObjective">Compared to drug :</label>
+          <div></div>
+          <p> </p>
+          <div className="form-group enFlex">
+            <label
+              htmlFor="studyObjective"
+              className="margeHaute lesMarges form-inline my-2 my-lg-0"
+            >
+              <strong>Compared to drug :</strong>
+            </label>
             <input
               type="text"
-              className="form-control"
+              className="justeLaMargeHaute enFlex form-control form-inline my-2 my-lg-0"
               id="comparedDrug"
               required
               value={state.comparedDrug}
@@ -138,9 +153,12 @@ export const AddStudy = () => {
               name="comparedDrug"
             />
           </div>
-
-          <button type="submit" className="btn btn-success">
-            Submit
+          <div></div>
+          <button
+            type="submit"
+            className="btn btn-success edit-link btn btn-primary lesMarges "
+          >
+            S U B M I T
           </button>
         </form>
       )}
