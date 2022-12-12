@@ -113,7 +113,7 @@ export const Patient = (props) => {
             <div className="form-group">
               <label htmlFor="sex">Sex</label>
               <input
-                type="date"
+                type="text"
                 className="form-control"
                 id="sex"
                 value={currentPatient.sex}
@@ -123,7 +123,7 @@ export const Patient = (props) => {
             <div className="form-group">
               <label htmlFor="email">eMail</label>
               <input
-                type="date"
+                type="mail"
                 className="form-control"
                 id="email"
                 value={currentPatient.email}

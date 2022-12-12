@@ -1,3 +1,5 @@
+// for Cypress https://learn.cypress.io/testing-your-first-application/app-install-and-overview
+
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -6,6 +8,7 @@ import { StudyList } from "./components/study-list.component";
 import { Study } from "./components/study.component";
 import { AddPatient } from "./components/add-patient.component";
 import { PatientList } from "./components/patient-list.component";
+import { AddAEvent } from "./components/add-AEvent.component";
 
 const App = () => {
   const [open, setOpen] = React.useState(false);
@@ -16,6 +19,7 @@ const App = () => {
 
   const [componentToDisplay, setCurrentComponent] = useState("StudyList");
   const [onGoingStudy, setOnGoingStudy] = useState("");
+  const [onGoingPatient, setOnGoingPatient] = useState("");
 
   const handleMenu = (e) => {
     setCurrentComponent(e.target.value);
@@ -35,7 +39,7 @@ const App = () => {
       <span>
         <h2 className="App-header d-flex justify-content-around">
           <img src="./logo-efrei.png" alt="" />
-          Patient follow-up in clinical studies
+          Patient diary in clinical studies
         </h2>
       </span>
       <nav className="d-flex justify-content-around effetDeBord navbar navbar-expand{-sm|-md|-lg|-xl|-xxl} navbar-expand-xl navbar-light bg-light">
@@ -92,6 +96,13 @@ const App = () => {
         <PatientList
           setCurrentComponent={setCurrentComponent}
           onGoingStudy={onGoingStudy}
+          setOnGoingPatient={setOnGoingPatient}
+        />
+      )}
+      {componentToDisplay === "AddAEvent" && (
+        <AddAEvent
+          setCurrentComponent={setCurrentComponent}
+          onGoingPatient={onGoingPatient}
         />
       )}
     </div>

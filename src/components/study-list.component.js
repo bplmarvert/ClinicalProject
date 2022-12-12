@@ -173,31 +173,36 @@ export const StudyList = (props) => {
             {/* ****************************************************************** */}
             {displayOrModify ? (
               <div>
+                {" "}
                 <h4>Study</h4>
                 <div>
+                  {" "}
                   <label>
                     <strong>Study name:</strong>
                   </label>{" "}
                   {currentStudy.studyName}
                 </div>
                 <div>
+                  {" "}
                   <label>
                     <strong>Study objective :</strong>
                   </label>{" "}
                   {currentStudy.studyObjective}
                 </div>
                 <div>
+                  {" "}
                   <label>
                     <strong>Tested drug:</strong>
                   </label>{" "}
                   {currentStudy.testedDrug}
                 </div>
                 <div>
+                  {" "}
                   <label>
                     <strong>Compared to drug:</strong>
                   </label>{" "}
                   {currentStudy.comparedDrug}
-                </div>
+                </div>{" "}
                 <button
                   type="button"
                   className="edit-link btn btn-primary"

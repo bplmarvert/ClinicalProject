@@ -39,11 +39,11 @@ export const ModifyPatient = (props) => {
 
   return (
     <>
-      <h2> Patient to be modified </h2>
+      <h4> Patient to be modified </h4>
       <form onSubmit={modifPatient}>
         <div>
           <label className="unelargeur form-inline my-2 my-lg-0">
-            Study Name:
+            <strong>Study Name:</strong>
           </label>{" "}
           <input
             type="text"
@@ -54,7 +54,7 @@ export const ModifyPatient = (props) => {
         </div>
         <div>
           <label className="unelargeur form-inline my-2 my-lg-0">
-            Patient Name:
+            <strong>Patient Name:</strong>
           </label>{" "}
           <input
             id={patient._id}
@@ -66,11 +66,11 @@ export const ModifyPatient = (props) => {
         </div>
         <div>
           <label className="unelargeur form-inline my-2 my-lg-0">
-            Birthday:
+            <strong>Birthday: </strong>
           </label>{" "}
           <input
             id={patient._id}
-            type="text"
+            type="date"
             required
             value={patient.birthday}
             onChange={onChangeBirthday}
@@ -78,7 +78,10 @@ export const ModifyPatient = (props) => {
         </div>
 
         <div>
-          <label className="unelargeur form-inline my-2 my-lg-0"> Sex: </label>{" "}
+          <label className="unelargeur form-inline my-2 my-lg-0">
+            {" "}
+            <strong>Sex: </strong>
+          </label>{" "}
           <input
             id={patient._id}
             type="text"
@@ -90,7 +93,7 @@ export const ModifyPatient = (props) => {
         <div>
           <label className="unelargeur form-inline my-2 my-lg-0">
             {" "}
-            eMail:{" "}
+            <strong>eMail: </strong>
           </label>{" "}
           <input
             id={patient._id}

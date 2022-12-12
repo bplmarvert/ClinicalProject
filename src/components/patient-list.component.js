@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getAllPatients } from "../services/patient.service";
+import { findPatientsByStudy } from "../services/patient.service";
 import "./study-list.component.css";
 import axios from "axios";
 import { ModifyPatient } from "./ModifyPatient.component";
+import { AEventList } from "./aEvent-list.component";
 
 export const PatientList = (props) => {
   const [searchPatientName, setSearchPatientName] = useState("");
@@ -12,13 +13,16 @@ export const PatientList = (props) => {
   const onGoingStudyName = props.onGoingStudy.studyName;
 
   const retrievePatient = () => {
-    getAllPatients()
+    findPatientsByStudy(onGoingStudyName)
       .then((response) => {
         console.log(response);
         setPatients(response.data);
       })
       .catch((e) => {
-        console.log("getAllPatients in Patient-list.component", e);
+        console.log(
+          "error returned in findPatientsByStudy in Patient-list.component",
+          e
+        );
       });
   };
 
@@ -43,6 +47,7 @@ export const PatientList = (props) => {
 
   const setActivePatient = (index) => {
     // setCurrentPatient(currentPatient);
+    props.setOnGoingPatient(currentPatient);
     setNbPatient(index);
   };
 
@@ -51,18 +56,18 @@ export const PatientList = (props) => {
     e.preventDefault();
   };
 
-  /*const getFilteredList = () => {
-    if (!selectedCategory) {
-      return sportList;
-    }
-    return sportList.filter((item) => item.category === selectedCategory);
-  }*/
-
   const onClickModify = (e) => {
     setDisplayOrModify(!displayOrModify);
-    //setCurrentPatient(currentPatient);
-    //console.log("onClickModify e = ", e);
-    //props.setCurrentComponent("ModifyPatient");
+  };
+
+  const onClickCreateAEvent = (e) => {
+    props.setOnGoingPatient(currentPatient);
+    props.setCurrentComponent("AddAEvent");
+  };
+
+  const onClickListAEvent = (e) => {
+    props.setOnGoingPatient(currentPatient);
+    props.setCurrentComponent("AEventList");
   };
 
   const onClickDelete = (e) => {
@@ -108,7 +113,7 @@ export const PatientList = (props) => {
           </div>
         </div>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-4">
         {console.log("onGoingStudyName = ", onGoingStudyName)}
         <h2
           style={{
@@ -127,7 +132,7 @@ export const PatientList = (props) => {
         <ul className="list-group">
           {patients &&
             patients
-              .filter((patient) => patient.studyName === onGoingStudyName)
+              //.filter((patient) => patient.studyName === onGoingStudyName)
               .map((_patients, _index) => (
                 <li
                   className={
@@ -151,7 +156,7 @@ export const PatientList = (props) => {
               ))}
         </ul>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-8">
         {typeof currentPatient != "undefined" ? (
           <div>
             {/* ******************************************************************* */}
@@ -197,7 +202,22 @@ export const PatientList = (props) => {
                   onClick={onClickModify}
                 >
                   Modify
-                </button>
+                </button>{" "}
+                <button
+                  type="button"
+                  className="edit-link btn btn-primary"
+                  onClick={onClickCreateAEvent}
+                >
+                  Add an event
+                </button>{" "}
+                {/*<button
+                  type="button"
+                  className="edit-link btn btn-primary"
+                  onClick={onClickListAEvent}
+            > 
+                  List events
+                </button>{" "}*/}
+                <AEventList onGoingPatient={currentPatient} />
               </div>
             ) : (
               <div>
@@ -212,6 +232,7 @@ export const PatientList = (props) => {
                 >
                   Display
                 </button>
+                <AEventList onGoingPatient={currentPatient} />
               </div>
             )}
           </div>

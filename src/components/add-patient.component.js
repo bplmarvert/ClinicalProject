@@ -58,7 +58,6 @@ export const AddPatient = (props) => {
   };
 
   const onChangeSex = (e) => {
-    //if (e.target.value in ("m", "M", "f", "F"))
     setPatient({ ...patient, sex: e.target.value.toUpperCase() });
   };
 

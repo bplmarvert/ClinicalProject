@@ -22,6 +22,10 @@ export const deletePatient = (id) => {
   return http.delete(`/patient/${id}`);
 };
 
+export const findPatientsByStudy = (onGoingStudyName) => {
+  return http.get(`/patient/findByStudy/${onGoingStudyName}`);
+};
+
 export const findPatientByPatientName = (patientName) => {
   return http.get(`/patient/findAll?patientName=${patientName}`);
 };
