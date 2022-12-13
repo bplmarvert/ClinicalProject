@@ -65,15 +65,8 @@ export const PatientList = (props) => {
     props.setCurrentComponent("AddAEvent");
   };
 
-  const onClickListAEvent = (e) => {
-    props.setOnGoingPatient(currentPatient);
-    props.setCurrentComponent("AEventList");
-  };
-
   const onClickDelete = (e) => {
     const url = `http://localhost:8083/api/patient/${e.target.id}`;
-    //console.log("e.target = " + e.target);
-    //console.log("e.target.id = " + e.target.id);
     axios
       .delete(url)
       .then(() => {

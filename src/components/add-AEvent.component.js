@@ -71,8 +71,8 @@ export const AddAEvent = (props) => {
 
   return (
     <div className="submit-form">
-      {console.log("props = ", props)}
-      {console.log("onGoingPatientName = ", onGoingPatientName)}
+      {/*{console.log("props = ", props)}
+      {console.log("onGoingPatientName = ", onGoingPatientName)}*/}
       <form id="enFlex add-study-form" onSubmit={saveAEvent}>
         <div className="enFlex form-group">
           <label

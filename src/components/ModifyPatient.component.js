@@ -14,7 +14,10 @@ export const ModifyPatient = (props) => {
   };
 
   const onChangeBirthday = (e) => {
-    setCurrentPatient({ ...patient, birthday: e.target.value });
+    setCurrentPatient({
+      ...patient,
+      birthday: e.target.value,
+    });
   };
 
   const onChangeSex = (e) => {
@@ -65,14 +68,17 @@ export const ModifyPatient = (props) => {
           />
         </div>
         <div>
-          <label className="unelargeur form-inline my-2 my-lg-0">
+          <label
+            placeholder={patient.birthday}
+            className="unelargeur form-inline my-2 my-lg-0"
+          >
             <strong>Birthday: </strong>
           </label>{" "}
           <input
             id={patient._id}
             type="date"
             required
-            value={patient.birthday}
+            value={toLocaleDateString(Date(patient.birthday))}
             onChange={onChangeBirthday}
           />
         </div>

@@ -48,15 +48,6 @@ export const StudyList = (props) => {
     e.preventDefault();
   };
 
-  /*findStudyByStudyName(searchStudyName)
-    .then((response) => {
-      setStudies(response.data);
-      console.log(response.data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });*/
-
   const onClickCreatePatient = (e) => {
     props.setOnGoingStudy(currentStudy);
     props.setCurrentComponent("AddPatient");
@@ -70,8 +61,6 @@ export const StudyList = (props) => {
   const onClickModify = (e) => {
     props.setOnGoingStudy(currentStudy);
     setDisplayOrModify(!displayOrModify);
-    //console.log("onClickModify e = ", e);
-    //props.setCurrentComponent("ModifyStudy");
   };
 
   const onClickDelete = (e) => {
@@ -109,10 +98,10 @@ export const StudyList = (props) => {
               color: "#cbce51",
             }}
           >
-            Clinical Study
+            Patient diary for clinical studies
           </h1>
           <p style={{ textAlign: "justify", color: "#fff" }}>
-            This is a simple application for Clinical studies management,
+            This Diary is a simple tool for Clinical studies management. It was
             designed for the course of Full Stack Developers, at Efrei Paris. It
             serves to provide an example of a full-stack application, including
             a react Frontend, Backend and a MongoDB database.

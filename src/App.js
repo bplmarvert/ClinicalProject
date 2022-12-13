@@ -45,7 +45,7 @@ const App = () => {
       <nav className="d-flex justify-content-around effetDeBord navbar navbar-expand{-sm|-md|-lg|-xl|-xxl} navbar-expand-xl navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="/study">
-            Clinical studies
+            Diary for use in clinical studies
           </a>
 
           {/* *********** Drop Down Menu ************* */}
@@ -53,7 +53,7 @@ const App = () => {
             <select onChange={handleMenu}>
               <option value="StudyList">Display all studies</option>
               <option value="AddStudy">Add a study</option>
-              <option value="ModifyStudy">Modify a study</option>
+              {/*<option value="ModifyStudy">Modify a study</option> */}
               <option value="AddPatient">Add a patient</option>
               <option value="ListPatient">List of the patients</option>
             </select>

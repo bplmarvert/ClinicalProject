@@ -26,30 +26,14 @@ export const AEventList = (props) => {
       });
   };
 
-  const retrieveAllAEvent = () => {
-    getAllAEvents()
-      .then((response) => {
-        console.log(response);
-        setAEvents(response.data);
-      })
-      .catch((e) => {
-        console.log("getAllPatients in Patient-list.component", e);
-      });
-  };
-
   useEffect(() => {
     retrieveAEvent();
-  }, []);
+  }, [props.onGoingPatient]);
 
   const updateAEvent = (aEvent) => {
     let newData = [...aEvents];
     newData[nbAEvent] = aEvent;
     setAEvents(newData);
-  };
-
-  const onChangeSearchAEventTitle = (e) => {
-    const searchAEventTitle = e.target.value;
-    setSearchAEventTitle(searchAEventTitle);
   };
 
   const refreshList = () => {
@@ -101,40 +85,7 @@ export const AEventList = (props) => {
   console.log("nbAEvent = ", nbAEvent);
   return (
     <div className="list row">
-      {/*<div className="col-md-12">
-        {/* ************************************ */}
-      {/* Here display the patient information */}{" "}
-      {/*}
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by event title"
-            value={searchAEventTitle}
-            onChange={onChangeSearchAEventTitle}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={doSearchAEventTitle}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </div> */}
       <div className="col-md-6">
-        {console.log("onGoingPatientName = ", onGoingPatientName)}
-        {/*<h2
-          style={{
-            textAlign: "center",
-            padding: "15px 0",
-            color: "#149151",
-          }}
-        >
-          Patient {onGoingPatientName}{" "}
-        </h2> */}
         <h4 className="margeHaute lesMarges form-inline my-2 my-lg-0">
           {" "}
           Event list for {onGoingPatientName}
@@ -142,20 +93,18 @@ export const AEventList = (props) => {
         <p> </p>
         <ul className="list-group">
           {aEvents &&
-            aEvents
-              .filter((aEvent) => aEvent.patientName === onGoingPatientName)
-              .map((_aEvents, _index) => (
-                <li
-                  className={
-                    "list-group-item " +
-                    (_index === currentAEvent.index ? "active" : "")
-                  }
-                  data-index={_index}
-                  onClick={() => setActiveAEvent(_index)}
-                  key={_index}
-                >
-                  {_aEvents.aEventTitle}
-                  {/*<button
+            aEvents.map((_aEvents, _index) => (
+              <li
+                className={
+                  "list-group-item " +
+                  (_index === currentAEvent.index ? "active" : "")
+                }
+                data-index={_index}
+                onClick={() => setActiveAEvent(_index)}
+                key={_index}
+              >
+                {_aEvents.aEventTitle}
+                {/*<button
                     type="button"
                     className={"btn btn-danger offset-sm-1"}
                     id={_aEvents.id}
@@ -163,8 +112,8 @@ export const AEventList = (props) => {
                   >
                     X
                 </button>*/}
-                </li>
-              ))}
+              </li>
+            ))}
         </ul>
       </div>
       <div className="col-md-6">
