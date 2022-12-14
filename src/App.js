@@ -9,6 +9,7 @@ import { Study } from "./components/study.component";
 import { AddPatient } from "./components/add-patient.component";
 import { PatientList } from "./components/patient-list.component";
 import { AddAEvent } from "./components/add-AEvent.component";
+import { LoginP } from "./login/LoginP";
 
 const App = () => {
   const [open, setOpen] = React.useState(false);
@@ -53,9 +54,9 @@ const App = () => {
             <select onChange={handleMenu}>
               <option value="StudyList">Display all studies</option>
               <option value="AddStudy">Add a study</option>
-              {/*<option value="ModifyStudy">Modify a study</option> */}
               <option value="AddPatient">Add a patient</option>
               <option value="ListPatient">List of the patients</option>
+              <option value="Connection">Connection</option>
             </select>
           </div>
           <div>
@@ -105,6 +106,7 @@ const App = () => {
           onGoingPatient={onGoingPatient}
         />
       )}
+      {componentToDisplay === "Connection" && <LoginP />}
     </div>
   );
 };

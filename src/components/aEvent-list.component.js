@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getAllAEvents } from "../services/aEvent.service";
 import { getAEventsByPatient } from "../services/aEvent.service";
 import "./study-list.component.css";
 import axios from "axios";
 import { ModifyAEvent } from "./ModifyAEvent.component";
 
 export const AEventList = (props) => {
-  const [searchAEventTitle, setSearchAEventTitle] = useState("");
   const [nbAEvent, setNbAEvent] = useState(0);
   const [aEvents, setAEvents] = useState([]);
   const [displayOrModify, setDisplayOrModify] = useState(true);
@@ -41,7 +39,6 @@ export const AEventList = (props) => {
   };
 
   const setActiveAEvent = (index) => {
-    // setCurrentAEvent(currentAEvent);
     setNbAEvent(index);
   };
 
@@ -50,24 +47,12 @@ export const AEventList = (props) => {
     e.preventDefault();
   };
 
-  /*const getFilteredList = () => {
-    if (!selectedCategory) {
-      return sportList;
-    }
-    return sportList.filter((item) => item.category === selectedCategory);
-  }*/
-
   const onClickModify = (e) => {
     setDisplayOrModify(!displayOrModify);
-    //setCurrentPatient(currentPatient);
-    //console.log("onClickModify e = ", e);
-    //props.setCurrentComponent("ModifyPatient");
   };
 
   const onClickDelete = (e) => {
     const url = `http://localhost:8083/api/aevent/${e.target.id}`;
-    //console.log("e.target = " + e.target);
-    //console.log("e.target.id = " + e.target.id);
     axios
       .delete(url)
       .then(() => {
@@ -104,14 +89,6 @@ export const AEventList = (props) => {
                 key={_index}
               >
                 {_aEvents.aEventTitle}
-                {/*<button
-                    type="button"
-                    className={"btn btn-danger offset-sm-1"}
-                    id={_aEvents.id}
-                    onClick={onClickDelete}
-                  >
-                    X
-                </button>*/}
               </li>
             ))}
         </ul>
@@ -147,16 +124,8 @@ export const AEventList = (props) => {
                   <label>
                     <strong>Date:</strong>
                   </label>{" "}
-                  {currentAEvent.aEventDt}
+                  {currentAEvent.aEventDt.substr(0, 10)}
                 </div>
-                <p> </p>
-                {/* <button
-                  type="button"
-                  className="edit-link btn btn-primary"
-                  onClick={onClickModify}
-                >
-                  Modify
-            </button> */}
               </div>
             ) : (
               <div>

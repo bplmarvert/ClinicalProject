@@ -174,7 +174,7 @@ export const PatientList = (props) => {
                   <label>
                     <strong>Birthday:</strong>
                   </label>{" "}
-                  {currentPatient.birthday}
+                  {currentPatient.birthday.substr(0, 10)}
                 </div>
                 <div>
                   <label>

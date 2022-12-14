@@ -33,7 +33,6 @@ export const AddAEvent = (props) => {
       })
       .catch((e) => {
         console.log("Error in add-aEvent.component createAEvent");
-
         console.log(e);
       });
   };
@@ -71,8 +70,6 @@ export const AddAEvent = (props) => {
 
   return (
     <div className="submit-form">
-      {/*{console.log("props = ", props)}
-      {console.log("onGoingPatientName = ", onGoingPatientName)}*/}
       <form id="enFlex add-study-form" onSubmit={saveAEvent}>
         <div className="enFlex form-group">
           <label

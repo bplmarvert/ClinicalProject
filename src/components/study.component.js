@@ -65,7 +65,6 @@ export const Study = (props) => {
       });
   };
 
-  // Cela ne passe jamais dans la pemière condition
   return (
     <div>
       {currentStudy ? (

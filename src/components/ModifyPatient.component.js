@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Moment from "moment";
 
 export const ModifyPatient = (props) => {
   const patient = props.patientState;
@@ -78,7 +79,7 @@ export const ModifyPatient = (props) => {
             id={patient._id}
             type="date"
             required
-            value={toLocaleDateString(Date(patient.birthday))}
+            value={patient.birthday}
             onChange={onChangeBirthday}
           />
         </div>
