@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-export const LoginP = () => {
-  const [user, setUser] = useState({ userName: "", password: "" });
+export const LoginP = (props) => {
+  const [user, setUser] = useState({ userName: "", password: "", token: "" });
 
   const onChangeSetUserName = (e) => {
     setUser({ ...user, userName: e.target.value });
@@ -13,16 +13,32 @@ export const LoginP = () => {
   };
 
   const onSubmitCheckUser = (e) => {
+    console.log(
+      "window.localStorage.getItem(token)",
+      localStorage.getItem("token")
+    );
     e.preventDefault();
     axios
-
-      .post("http://localhost:8083/api/user/", {
-        username: user.userName,
-        password: user.password,
-      })
+      .post(
+        "http://localhost:8083/api/user/",
+        {
+          username: user.userName,
+          password: user.password,
+        },
+        { headers: { token: window.localStorage.getItem("token") } } //en 3e argument, on peut définir le contenu du header
+      )
       .then((resp) => {
-        console.log("response du fetch ", resp);
+        //console.log("response du fetch ", resp);
         localStorage.setItem("token", resp.data.token); // stringify if object
+        if (resp.status === 200) {
+          console.log("status = ", resp.status);
+          props.setCurrentComponent("StudyList");
+
+          //);
+        }
+        if (resp.status === 403) {
+          alert("Login or password error");
+        }
       })
       .catch((e) => {
         console.log("erreur dans onSubmitCheckUser", e);

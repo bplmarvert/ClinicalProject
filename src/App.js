@@ -18,7 +18,7 @@ const App = () => {
     setOpen(!open);
   };
 
-  const [componentToDisplay, setCurrentComponent] = useState("StudyList");
+  const [componentToDisplay, setCurrentComponent] = useState("Connection");
   const [onGoingStudy, setOnGoingStudy] = useState("");
   const [onGoingPatient, setOnGoingPatient] = useState("");
 
@@ -52,11 +52,11 @@ const App = () => {
           {/* *********** Drop Down Menu ************* */}
           <div className="dropdown">
             <select onChange={handleMenu}>
+              <option value="Connection">Connection</option>
               <option value="StudyList">Display all studies</option>
               <option value="AddStudy">Add a study</option>
               <option value="AddPatient">Add a patient</option>
               <option value="ListPatient">List of the patients</option>
-              <option value="Connection">Connection</option>
             </select>
           </div>
           <div>
@@ -106,7 +106,12 @@ const App = () => {
           onGoingPatient={onGoingPatient}
         />
       )}
-      {componentToDisplay === "Connection" && <LoginP />}
+      {componentToDisplay === "Connection" && (
+        <LoginP
+          setCurrentComponent={setCurrentComponent}
+          onGoingPatient={onGoingPatient}
+        />
+      )}
     </div>
   );
 };
