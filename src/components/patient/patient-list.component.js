@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { findPatientsByStudy } from "../services/patient.service";
+import { findPatientsByStudy } from "../../services/patient.service";
 import "./study-list.component.css";
 import axios from "axios";
 import { ModifyPatient } from "./ModifyPatient.component";
-import { AEventList } from "./aEvent-list.component";
+import { AEventList } from "../aEvent/aEvent-list.component";
 
 export const PatientList = (props) => {
   const [searchPatientName, setSearchPatientName] = useState("");

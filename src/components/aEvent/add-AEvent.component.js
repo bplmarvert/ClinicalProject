@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createAEvent } from "../services/aEvent.service";
+import { createAEvent } from "../../services/aEvent.service";
 
 export const AddAEvent = (props) => {
   const onGoingPatientName = props.onGoingPatient.patientName;

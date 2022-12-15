@@ -3,7 +3,7 @@ import {
   getPatient,
   updatePatient,
   deletePatient,
-} from "../services/patient.service";
+} from "../../services/patient.service";
 import { useParams, useNavigate } from "react-router-dom";
 
 export const Patient = (props) => {

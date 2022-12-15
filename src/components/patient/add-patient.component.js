@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createPatient } from "../services/patient.service";
+import { createPatient } from "../../services/patient.service";
 
 export const AddPatient = (props) => {
   const onGoingStudyName = props.onGoingStudy.studyName;

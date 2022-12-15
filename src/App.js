@@ -6,9 +6,9 @@ import "./App.css";
 import { AddStudy } from "./components/add-study.component";
 import { StudyList } from "./components/study-list.component";
 import { Study } from "./components/study.component";
-import { AddPatient } from "./components/add-patient.component";
-import { PatientList } from "./components/patient-list.component";
-import { AddAEvent } from "./components/add-AEvent.component";
+import { AddPatient } from "./components/patient/add-patient.component";
+import { PatientList } from "./components/patient/patient-list.component";
+import { AddAEvent } from "./components/aEvent/add-AEvent.component";
 import { LoginP } from "./login/LoginP";
 
 const App = () => {

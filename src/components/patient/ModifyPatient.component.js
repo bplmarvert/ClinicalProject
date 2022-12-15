@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import Moment from "moment";
 
 export const ModifyPatient = (props) => {
   const patient = props.patientState;

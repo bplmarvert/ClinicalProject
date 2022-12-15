@@ -3,7 +3,7 @@ import {
   getAEvent,
   updateAEvent,
   deleteAEvent,
-} from "../services/aEvent.service";
+} from "../../services/aEvent.service";
 import { useParams, useNavigate } from "react-router-dom";
 
 export const AEvent = (props) => {

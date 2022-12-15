@@ -1,7 +1,9 @@
 import http from "../http-common";
 
 export const getAllStudies = () => {
-  return http.get("/study/findAll");
+  let token = localStorage.getItem("token");
+  //console.log("Token = ", token);
+  return http.get("/study/findAll"); //, , headers: { token: token.token});
 };
 
 export const getStudy = (id) => {

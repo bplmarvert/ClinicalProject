@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAEventsByPatient } from "../services/aEvent.service";
+import { getAEventsByPatient } from "../../services/aEvent.service";
 import "./study-list.component.css";
 import axios from "axios";
 import { ModifyAEvent } from "./ModifyAEvent.component";

@@ -31,6 +31,7 @@ export const StudyList = (props) => {
   };
 
   const onChangeSearchStudyName = (e) => {
+    // research bar
     const searchStudyName = e.target.value;
     setSearchStudyName(searchStudyName);
   };
